@@ -1,0 +1,12 @@
+language: java
+
+before_install:
+    - chmod +x gradlew
+
+script:
+    - ./gradlew build
+    - ./gradlew test
+
+jdk:
+    - oraclejdk7
+    - oraclejdk8
