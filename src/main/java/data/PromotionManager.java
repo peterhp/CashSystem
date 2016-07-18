@@ -2,11 +2,10 @@ package data;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import info.Promotion;
+import util.JsonReader;
 
-import java.io.*;
-import java.nio.charset.Charset;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,12 +27,9 @@ public class PromotionManager {
 
     public void readFromJsonFile(String jsonFile)
             throws FileNotFoundException {
-        InputStream in = new FileInputStream(jsonFile);
-        Reader reader = new InputStreamReader(
-                in, Charset.forName("UTF-8"));
-
-        JsonArray jsonPromotionArray = new JsonParser()
-                .parse(reader).getAsJsonArray();
+        JsonArray jsonPromotionArray =
+                JsonReader.getJsonFromFile(jsonFile)
+                .getAsJsonArray();
 
         for (int i = 0; i < jsonPromotionArray.size(); ++i) {
             JsonObject jsonPromotion = jsonPromotionArray

@@ -3,11 +3,10 @@ package data;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import info.Commodity;
+import util.JsonReader;
 
-import java.io.*;
-import java.nio.charset.Charset;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 /**
@@ -28,12 +27,9 @@ public class CommodityManager {
 
     public void readFromJsonFile(String jsonFile)
             throws FileNotFoundException {
-        InputStream in = new FileInputStream(jsonFile);
-        Reader reader = new InputStreamReader(
-                in, Charset.forName("UTF-8"));
-
-        JsonArray jsonCommodityArray = new JsonParser()
-                .parse(reader).getAsJsonArray();
+        JsonArray jsonCommodityArray =
+                JsonReader.getJsonFromFile(jsonFile)
+                .getAsJsonArray();
 
         for (int i = 0; i < jsonCommodityArray.size(); ++i) {
             JsonObject jsonCommodity = jsonCommodityArray

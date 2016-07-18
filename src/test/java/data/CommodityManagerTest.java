@@ -5,19 +5,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by Sora on 2016/7/18.
  */
 public class CommodityManagerTest {
 
-    CommodityManager commodityManager = CommodityManager.getManager();
+    CommodityManager commodityManager =
+            CommodityManager.getManager();
 
     @Before
     public void setUp() throws Exception {
-        commodityManager.readFromJsonFile(getClass().getClassLoader()
-                .getResource("commodity_list.json").getPath());
+        commodityManager.readFromJsonFile(
+                ResFile.getPath("commodity_list.json"));
     }
 
     @Test
