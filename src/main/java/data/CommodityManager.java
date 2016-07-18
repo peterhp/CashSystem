@@ -45,7 +45,7 @@ public class CommodityManager {
         }
     }
 
-    public int getCount() {
+    public int count() {
         return commodityMap.size();
     }
 

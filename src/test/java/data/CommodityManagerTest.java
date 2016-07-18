@@ -1,6 +1,7 @@
 package data;
 
 import info.Commodity;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
@@ -11,24 +12,25 @@ import static org.junit.Assert.*;
  */
 public class CommodityManagerTest {
 
+    CommodityManager commodityManager = CommodityManager.getManager();
+
+    @Before
+    public void setUp() throws Exception {
+        commodityManager.readFromJsonFile(getClass().getClassLoader()
+                .getResource("commodity_list.json").getPath());
+    }
+
     @Test
     public void should_read_enough_commodity_from_json_file()
             throws Exception {
-        CommodityManager commodityManager = CommodityManager.getManager();
-        commodityManager.readFromJsonFile(getClass().getClassLoader()
-                .getResource("commodity_list.json").getPath());
-
-        assertThat(commodityManager.getCount(), is(6));
+        assertThat(commodityManager.count(), is(6));
     }
 
     @Test
     public void should_read_right_commodity_from_json_file()
             throws Exception {
-        CommodityManager commodityManager = CommodityManager.getManager();
-        commodityManager.readFromJsonFile(getClass().getClassLoader()
-                .getResource("commodity_list.json").getPath());
-
         Commodity commodity = commodityManager.get("ITEM000002");
+
         assertThat(commodity.getName(), is("雪碧"));
         assertThat(commodity.getCategory(), is("食品"));
         assertThat(commodity.getSubCategory(), is("饮料"));
