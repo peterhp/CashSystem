@@ -3,6 +3,7 @@ package data;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import info.Buy3Free1Promotion;
+import info.Commodity;
 import info.DiscountPromotion;
 import info.Promotion;
 import util.JsonReader;
@@ -64,5 +65,22 @@ public class PromotionManager {
 
     public int count() {
         return promotionMap.size();
+    }
+
+    public Promotion getPromotion(Commodity commodity) {
+        Promotion buy3free1Promotion =
+                promotionMap.get("BUY_THREE_GET_ONE_FREE");
+        Promotion discountPromotion =
+                promotionMap.get("FIVE_PERCENT_DISCOUNT");
+
+        if (buy3free1Promotion != null &&
+                buy3free1Promotion.contains(commodity)) {
+            return buy3free1Promotion;
+        } else if (discountPromotion != null &&
+                discountPromotion.contains(commodity)) {
+            return discountPromotion;
+        } else {
+            return null;
+        }
     }
 }
