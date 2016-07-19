@@ -3,7 +3,6 @@ package util;
 import com.google.gson.JsonArray;
 import data.CommodityManager;
 import data.ShopCart;
-import info.CommodityItem;
 
 import java.io.FileNotFoundException;
 

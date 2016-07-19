@@ -7,6 +7,7 @@ import info.Commodity;
 import info.DiscountPromotion;
 import info.Promotion;
 import util.JsonReader;
+import util.PromotionParser;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -18,17 +19,14 @@ import java.util.List;
  */
 public class PromotionManager {
 
-    private static PromotionManager manager = null;
+    private static PromotionManager manager =
+            new PromotionManager();
 
     public static PromotionManager getManager() {
-        if (manager == null) {
-            manager = new PromotionManager();
-        }
         return manager;
     }
 
-    private HashMap<String, Promotion> promotionMap = new HashMap<>();
-    private static Promotion buildPromotion(String type) {
+    public static Promotion buildPromotion(String type) {
         if (type.equals("BUY_THREE_GET_ONE_FREE")) {
             return new Buy3Free1Promotion();
         } else if (type.equals("FIVE_PERCENT_DISCOUNT")) {
@@ -38,29 +36,11 @@ public class PromotionManager {
         }
     }
 
+    private HashMap<String, Promotion> promotionMap = null;
+
     public void readFromJsonFile(String jsonFile)
             throws FileNotFoundException {
-        JsonArray jsonPromotionArray =
-                JsonReader.getJsonFromFile(jsonFile)
-                .getAsJsonArray();
-
-        for (int i = 0; i < jsonPromotionArray.size(); ++i) {
-            JsonObject jsonPromotion = jsonPromotionArray
-                    .get(i).getAsJsonObject();
-
-            String type = jsonPromotion.get("type").getAsString();
-            Promotion promotion = buildPromotion(type);
-
-            if (promotion != null) {
-                JsonArray jsonBarcodes = jsonPromotion
-                        .get("barcodes").getAsJsonArray();
-                for (int j = 0; j < jsonBarcodes.size(); ++j) {
-                    promotion.add(jsonBarcodes.get(j).getAsString());
-                }
-
-                promotionMap.put(type, promotion);
-            }
-        }
+        promotionMap = PromotionParser.readFromJsonFile(jsonFile);
     }
 
     public int count() {

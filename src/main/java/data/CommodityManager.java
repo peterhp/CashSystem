@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import info.Commodity;
+import util.CommodityParser;
 import util.JsonReader;
 
 import java.io.FileNotFoundException;
@@ -14,31 +15,18 @@ import java.util.HashMap;
  */
 public class CommodityManager {
 
-    private static CommodityManager manager = null;
+    private static CommodityManager manager =
+            new CommodityManager();
 
     public static CommodityManager getManager() {
-        if (manager == null) {
-            manager = new CommodityManager();
-        }
         return manager;
     }
 
-    private HashMap<String, Commodity> commodityMap = new HashMap<>();
+    private HashMap<String, Commodity> commodityMap = null;
 
     public void readFromJsonFile(String jsonFile)
             throws FileNotFoundException {
-        JsonArray jsonCommodityArray =
-                JsonReader.getJsonFromFile(jsonFile)
-                .getAsJsonArray();
-
-        for (int i = 0; i < jsonCommodityArray.size(); ++i) {
-            JsonObject jsonCommodity = jsonCommodityArray
-                    .get(i).getAsJsonObject();
-
-            Commodity commodity = new Gson()
-                    .fromJson(jsonCommodity, Commodity.class);
-            commodityMap.put(commodity.getBarcode(), commodity);
-        }
+        commodityMap = CommodityParser.readFromJsonFile(jsonFile);
     }
 
     public int count() {
