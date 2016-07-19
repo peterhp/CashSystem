@@ -18,4 +18,12 @@ public class Promotion {
     public void add(String barcode) {
         barcodes.add(barcode);
     }
+
+    public boolean contains(Commodity commodity) {
+        return barcodes.contains(commodity.getBarcode());
+    }
+
+    public float calcDiscount(Commodity commodity, int count) {
+        return contains(commodity) ? commodity.getPrice() * (count / 3) : 0;
+    }
 }
