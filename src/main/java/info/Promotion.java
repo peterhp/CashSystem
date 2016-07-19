@@ -24,6 +24,13 @@ public class Promotion {
     }
 
     public float calcDiscount(Commodity commodity, int count) {
-        return contains(commodity) ? commodity.getPrice() * (count / 3) : 0;
+        if (contains(commodity)) {
+            if (type.equals("BUY_THREE_GET_ONE_FREE")) {
+                return commodity.getPrice() * (count / 3);
+            } else if (type.equals("FIVE_PERCENT_DISCOUNT")) {
+                return commodity.getPrice() * count * 0.05f;
+            }
+        }
+        return 0;
     }
 }

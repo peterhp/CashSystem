@@ -43,4 +43,35 @@ public class PromotionTest {
         given(commodity.getBarcode()).willReturn("ITEM000002");
         assertThat(buy3free1Promotion.calcDiscount(commodity, 3), is(0.00f));
     }
+
+    @Test
+    public void should_check_whether_commodity_in_five_percent_discount_promotion()
+            throws Exception {
+        Promotion discountPromotion = new Promotion("FIVE_PERCENT_DISCOUNT");
+        discountPromotion.add("ITEM000001");
+
+        Commodity commodity = mock(Commodity.class);
+
+        given(commodity.getBarcode()).willReturn("ITEM000001");
+        assertThat(discountPromotion.contains(commodity), is(true));
+
+        given(commodity.getBarcode()).willReturn("ITEM000002");
+        assertThat(discountPromotion.contains(commodity), is(false));
+    }
+
+    @Test
+    public void should_get_right_discount_for_five_percent_discount_promotion()
+            throws Exception {
+        Promotion discountPromotion = new Promotion("FIVE_PERCENT_DISCOUNT");
+        discountPromotion.add("ITEM000001");
+
+        Commodity commodity = mock(Commodity.class);
+        given(commodity.getPrice()).willReturn(3.00f);
+
+        given(commodity.getBarcode()).willReturn("ITEM000001");
+        assertThat(discountPromotion.calcDiscount(commodity, 2), is(0.30f));
+
+        given(commodity.getBarcode()).willReturn("ITEM000002");
+        assertThat(discountPromotion.calcDiscount(commodity, 3), is(0.00f));
+    }
 }
