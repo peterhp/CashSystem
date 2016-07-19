@@ -1,5 +1,8 @@
 package data;
 
+import info.Commodity;
+import info.CommodityItem;
+
 import java.util.HashMap;
 
 /**
@@ -7,18 +10,21 @@ import java.util.HashMap;
  */
 public class ShopCart {
 
-    private HashMap<String, Integer> itemMap = new HashMap<>();
+    private HashMap<String, CommodityItem> itemMap = new HashMap<>();
 
-    public int get(String barcode) {
+    public CommodityItem getItem(String barcode) {
         return itemMap.get(barcode);
     }
 
-    public void add(String barcode, int count) {
+    public void add(Commodity commodity, int quantity) {
+        String barcode = commodity.getBarcode();
         if (itemMap.containsKey(barcode)) {
-            itemMap.put(barcode,
-                    itemMap.get(barcode) + count);
+            CommodityItem item = itemMap.get(barcode);
+            item.add(quantity);
+            itemMap.put(barcode, item);
         } else {
-            itemMap.put(barcode, count);
+            CommodityItem item = new CommodityItem(commodity, quantity);
+            itemMap.put(barcode, item);
         }
     }
 }

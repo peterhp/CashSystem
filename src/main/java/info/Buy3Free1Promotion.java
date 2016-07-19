@@ -6,7 +6,9 @@ package info;
 public class Buy3Free1Promotion extends Promotion {
 
     @Override
-    public float calcDiscount(Commodity commodity, int count) {
-        return contains(commodity) ? commodity.getPrice() * (count / 3) : 0;
+    public float calcDiscount(CommodityItem item) {
+        return contains(item.getCommodity()) ?
+                item.getCommodity().getPrice() * (item.getQuantity() / 3) :
+                0;
     }
 }

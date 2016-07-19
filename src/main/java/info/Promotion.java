@@ -18,6 +18,6 @@ public abstract class Promotion {
         return barcodes.contains(commodity.getBarcode());
     }
 
-    public abstract float calcDiscount(Commodity commodity, int count);
+    public abstract float calcDiscount(CommodityItem item);
 
 }

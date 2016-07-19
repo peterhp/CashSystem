@@ -45,6 +45,10 @@ public class CommodityManager {
         return commodityMap.size();
     }
 
+    public boolean contains(String barcode) {
+        return commodityMap.containsKey(barcode);
+    }
+
     public Commodity get(String barcode) {
         return commodityMap.get(barcode);
     }

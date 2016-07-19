@@ -6,7 +6,9 @@ package info;
 public class DiscountPromotion extends Promotion {
 
     @Override
-    public float calcDiscount(Commodity commodity, int count) {
-        return contains(commodity) ? commodity.getPrice() * count * 0.05f : 0;
+    public float calcDiscount(CommodityItem item) {
+        return contains(item.getCommodity()) ?
+                item.getCommodity().getPrice() * item.getQuantity() * 0.05f :
+                0;
     }
 }

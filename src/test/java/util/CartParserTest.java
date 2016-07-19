@@ -1,5 +1,6 @@
 package util;
 
+import data.CommodityManager;
 import data.ResFile;
 import data.ShopCart;
 import org.junit.Before;
@@ -14,9 +15,13 @@ import static org.junit.Assert.assertThat;
 public class CartParserTest {
 
     ShopCart cart = null;
+    CommodityManager manager =
+            CommodityManager.getManager();
 
     @Before
     public void setUp() throws Exception {
+        manager.readFromJsonFile(
+                ResFile.getPath("commodity_list.json"));
         cart = CartParser.readFromJsonFile(
                 ResFile.getPath("shop_cart.json"));
     }
@@ -24,7 +29,7 @@ public class CartParserTest {
     @Test
     public void should_read_commodity_list_in_cart_from_json_file()
             throws Exception {
-        assertThat(cart.get("ITEM000001"), is(3));
-        assertThat(cart.get("ITEM000003"), is(2));
+        assertThat(cart.getItem("ITEM000001").getQuantity(), is(3));
+        assertThat(cart.getItem("ITEM000003").getQuantity(), is(2));
     }
 }

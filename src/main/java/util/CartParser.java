@@ -1,7 +1,9 @@
 package util;
 
 import com.google.gson.JsonArray;
+import data.CommodityManager;
 import data.ShopCart;
+import info.CommodityItem;
 
 import java.io.FileNotFoundException;
 
@@ -14,6 +16,9 @@ public class CartParser {
             throws FileNotFoundException {
         ShopCart cart = new ShopCart();
 
+        CommodityManager manager =
+                CommodityManager.getManager();
+
         JsonArray jsonItemArray =
                 JsonReader.getJsonFromFile(jsonFile)
                 .getAsJsonArray();
@@ -23,14 +28,15 @@ public class CartParser {
 
             String barcode = itemText;
             int count = 1;
-
             int pos = itemText.indexOf('-');
             if (pos > 0) {
                 barcode = itemText.substring(0, pos);
                 count = Integer.valueOf(itemText.substring(pos + 1));
             }
 
-            cart.add(barcode, count);
+            if (manager.contains(barcode)) {
+                cart.add(manager.get(barcode), count);
+            }
         }
 
         return cart;
