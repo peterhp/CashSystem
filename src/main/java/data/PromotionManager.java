@@ -2,11 +2,14 @@ package data;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import info.Buy3Free1Promotion;
+import info.DiscountPromotion;
 import info.Promotion;
 import util.JsonReader;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,7 +26,16 @@ public class PromotionManager {
         return manager;
     }
 
-    private List<Promotion> promotionList = new ArrayList<>();
+    private HashMap<String, Promotion> promotionMap = new HashMap<>();
+    private static Promotion buildPromotion(String type) {
+        if (type.equals("BUY_THREE_GET_ONE_FREE")) {
+            return new Buy3Free1Promotion();
+        } else if (type.equals("FIVE_PERCENT_DISCOUNT")) {
+            return new DiscountPromotion();
+        } else {
+            return null;
+        }
+    }
 
     public void readFromJsonFile(String jsonFile)
             throws FileNotFoundException {
@@ -35,20 +47,22 @@ public class PromotionManager {
             JsonObject jsonPromotion = jsonPromotionArray
                     .get(i).getAsJsonObject();
 
-            Promotion promotion = Promotion.getPromotion(
-                    jsonPromotion.get("type").getAsString());
+            String type = jsonPromotion.get("type").getAsString();
+            Promotion promotion = buildPromotion(type);
 
-            JsonArray jsonBarcodes = jsonPromotion
-                    .get("barcodes").getAsJsonArray();
-            for (int j = 0; j < jsonBarcodes.size(); ++j) {
-                promotion.add(jsonBarcodes.get(j).getAsString());
+            if (promotion != null) {
+                JsonArray jsonBarcodes = jsonPromotion
+                        .get("barcodes").getAsJsonArray();
+                for (int j = 0; j < jsonBarcodes.size(); ++j) {
+                    promotion.add(jsonBarcodes.get(j).getAsString());
+                }
+
+                promotionMap.put(type, promotion);
             }
-
-            promotionList.add(promotion);
         }
     }
 
     public int count() {
-        return promotionList.size();
+        return promotionMap.size();
     }
 }
