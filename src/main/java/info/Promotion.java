@@ -1,19 +1,15 @@
 package info;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Created by Sora on 2016/7/18.
  */
-public class Promotion {
+public abstract class Promotion {
 
-    private String type;
     private Set<String> barcodes = new HashSet<>();
-
-    public Promotion(String type) {
-        this.type = type;
-    }
 
     public void add(String barcode) {
         barcodes.add(barcode);
@@ -23,14 +19,16 @@ public class Promotion {
         return barcodes.contains(commodity.getBarcode());
     }
 
-    public float calcDiscount(Commodity commodity, int count) {
-        if (contains(commodity)) {
-            if (type.equals("BUY_THREE_GET_ONE_FREE")) {
-                return commodity.getPrice() * (count / 3);
-            } else if (type.equals("FIVE_PERCENT_DISCOUNT")) {
-                return commodity.getPrice() * count * 0.05f;
-            }
+    public abstract float calcDiscount(Commodity commodity, int count);
+
+    public static Promotion getPromotion(String type) {
+        if (type.equals("BUY_THREE_GET_ONE_FREE")) {
+            return new Buy3Free1Promotion();
+        } else if (type.equals("FIVE_PERCENT_DISCOUNT")) {
+            return new DiscountPromotion();
+        } else {
+            return null;
         }
-        return 0;
     }
+
 }

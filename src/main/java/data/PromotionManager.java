@@ -35,7 +35,7 @@ public class PromotionManager {
             JsonObject jsonPromotion = jsonPromotionArray
                     .get(i).getAsJsonObject();
 
-            Promotion promotion = new Promotion(
+            Promotion promotion = Promotion.getPromotion(
                     jsonPromotion.get("type").getAsString());
 
             JsonArray jsonBarcodes = jsonPromotion
