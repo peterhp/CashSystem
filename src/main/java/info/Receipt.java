@@ -122,21 +122,6 @@ public class Receipt {
         return "";
     }
 
-    public static String promotionText(Promotion promotion, List<CommodityItem> itemList) {
-        if (itemList.isEmpty() || promotion.getPromotionTitle().isEmpty()) {
-            return "";
-        }
-
-        String text = promotion.getPromotionTitle() + "\n";
-        for (CommodityItem item : itemList) {
-            if (!promotion.getItemPromotion(item).isEmpty()) {
-                text += promotion.getItemPromotion(item) + "\n";
-            }
-        }
-
-        return text;
-    }
-
     public static String costText(float cost, float save) {
         String text = String.format("总计：%.2f（元）\n", cost);
 

@@ -3,9 +3,6 @@ package info;
 import data.TestDataCenter;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -34,17 +31,14 @@ public class ReceiptTest {
     @Test
     public void should_return_right_promotion_text_in_receipt()
             throws Exception {
-        List<CommodityItem> itemList = new ArrayList<>();
-        itemList.add(item);
-
         Promotion buy3free1Promotion = new Buy3Free1Promotion();
         buy3free1Promotion.add(item.getCommodity().getBarcode());
-        assertThat(Receipt.promotionText(buy3free1Promotion, itemList),
-                is("买二赠一商品：\n名称：可口可乐，数量：1瓶\n"));
+        assertThat(Receipt.itemPromotionText(item, buy3free1Promotion),
+                is("名称：可口可乐，数量：1瓶\n"));
 
         Promotion discountPromotion = new DiscountPromotion();
         discountPromotion.add(item.getCommodity().getBarcode());
-        assertThat(Receipt.promotionText(discountPromotion, itemList),
+        assertThat(Receipt.itemPromotionText(item, discountPromotion),
                 is(""));
     }
 
