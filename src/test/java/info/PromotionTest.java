@@ -39,16 +39,16 @@ public class PromotionTest {
     }
 
     @Test
-    public void should_get_right_discount_for_buy_three_get_one_free_promotion()
+    public void should_get_right_saving_for_buy_three_get_one_free_promotion()
             throws Exception {
         given(commodity.getBarcode()).willReturn("ITEM000001");
-        assertThat(buy3free1Promotion.calcDiscount(
+        assertThat(buy3free1Promotion.calcSaving(
                 new CommodityItem(commodity, 2)), is(0.00f));
-        assertThat(buy3free1Promotion.calcDiscount(
+        assertThat(buy3free1Promotion.calcSaving(
                 new CommodityItem(commodity, 3)), is(3.00f));
 
         given(commodity.getBarcode()).willReturn("ITEM000002");
-        assertThat(buy3free1Promotion.calcDiscount(
+        assertThat(buy3free1Promotion.calcSaving(
                 new CommodityItem(commodity, 3)), is(0.00f));
     }
 
@@ -63,14 +63,14 @@ public class PromotionTest {
     }
 
     @Test
-    public void should_get_right_discount_for_five_percent_discount_promotion()
+    public void should_get_right_saving_for_five_percent_discount_promotion()
             throws Exception {
         given(commodity.getBarcode()).willReturn("ITEM000001");
-        assertThat(discountPromotion.calcDiscount(
+        assertThat(discountPromotion.calcSaving(
                 new CommodityItem(commodity, 2)), is(0.30f));
 
         given(commodity.getBarcode()).willReturn("ITEM000002");
-        assertThat(discountPromotion.calcDiscount(
+        assertThat(discountPromotion.calcSaving(
                 new CommodityItem(commodity, 3)), is(0.00f));
     }
 }

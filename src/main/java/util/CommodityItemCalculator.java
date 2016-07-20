@@ -2,7 +2,6 @@ package util;
 
 import data.PromotionManager;
 import info.CommodityItem;
-import info.DiscountPromotion;
 import info.Promotion;
 
 /**
@@ -29,16 +28,12 @@ public class CommodityItemCalculator {
     }
 
     public float calcDiscount() {
-        if (promotion != null &&
-                promotion instanceof DiscountPromotion) {
-            return promotion.calcDiscount(item);
-        }
-        return 0;
+        return promotion != null ?
+                promotion.calcDiscount(item) : 0;
     }
 
     public float calcSave() {
         return promotion != null ?
-                promotion.calcDiscount(item) :
-                0;
+                promotion.calcSaving(item) : 0;
     }
 }

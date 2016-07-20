@@ -11,4 +11,9 @@ public class DiscountPromotion extends Promotion {
                 item.getCommodity().getPrice() * item.getQuantity() * 0.05f :
                 0;
     }
+
+    @Override
+    public float calcSaving(CommodityItem item) {
+        return calcDiscount(item);
+    }
 }

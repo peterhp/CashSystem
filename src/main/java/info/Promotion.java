@@ -20,4 +20,6 @@ public abstract class Promotion {
 
     public abstract float calcDiscount(CommodityItem item);
 
+    public abstract float calcSaving(CommodityItem item);
+
 }
