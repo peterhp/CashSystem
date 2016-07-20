@@ -3,6 +3,9 @@ package info;
 import data.TestDataCenter;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -26,5 +29,22 @@ public class ReceiptTest {
         assertThat(Receipt.itemText(item, 8.55f, 0.45f),
                 is("名称：可口可乐，数量：3瓶，单价：3.00（元），" +
                         "小计：8.55（元），节省0.45（元）"));
+    }
+
+    @Test
+    public void should_return_right_promotion_text_in_receipt()
+            throws Exception {
+        List<CommodityItem> itemList = new ArrayList<>();
+        itemList.add(item);
+
+        Promotion buy3free1Promotion = new Buy3Free1Promotion();
+        buy3free1Promotion.add(item.getCommodity().getBarcode());
+        assertThat(Receipt.promotionText(buy3free1Promotion, itemList),
+                is("买二赠一商品：\n名称：可口可乐，数量：1瓶\n"));
+
+        Promotion discountPromotion = new DiscountPromotion();
+        discountPromotion.add(item.getCommodity().getBarcode());
+        assertThat(Receipt.promotionText(discountPromotion, itemList),
+                is(""));
     }
 }

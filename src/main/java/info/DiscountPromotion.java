@@ -16,4 +16,14 @@ public class DiscountPromotion extends Promotion {
     public float calcSaving(CommodityItem item) {
         return calcDiscount(item);
     }
+
+    @Override
+    public String getPromotionTitle() {
+        return "";
+    }
+
+    @Override
+    public String getItemPromotion(CommodityItem item) {
+        return "";
+    }
 }

@@ -1,5 +1,7 @@
 package info;
 
+import java.util.List;
+
 /**
  * Created by Sora on 2016/7/20.
  */
@@ -13,6 +15,21 @@ public class Receipt {
         if (discount > 0) {
             text += String.format("，节省%.2f（元）", discount);
         }
+        return text;
+    }
+
+    public static String promotionText(Promotion promotion, List<CommodityItem> itemList) {
+        if (itemList.isEmpty() || promotion.getPromotionTitle().isEmpty()) {
+            return "";
+        }
+
+        String text = promotion.getPromotionTitle() + "\n";
+        for (CommodityItem item : itemList) {
+            if (!promotion.getItemPromotion(item).isEmpty()) {
+                text += promotion.getItemPromotion(item) + "\n";
+            }
+        }
+
         return text;
     }
 }

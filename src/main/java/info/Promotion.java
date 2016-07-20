@@ -22,4 +22,7 @@ public abstract class Promotion {
 
     public abstract float calcSaving(CommodityItem item);
 
+    public abstract String getPromotionTitle();
+
+    public abstract String getItemPromotion(CommodityItem item);
 }
