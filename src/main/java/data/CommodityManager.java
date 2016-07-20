@@ -1,11 +1,7 @@
 package data;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import info.Commodity;
 import util.CommodityParser;
-import util.JsonReader;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;

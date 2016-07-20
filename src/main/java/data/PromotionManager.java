@@ -1,18 +1,13 @@
 package data;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import info.Buy3Free1Promotion;
 import info.Commodity;
 import info.DiscountPromotion;
 import info.Promotion;
-import util.JsonReader;
 import util.PromotionParser;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Sora on 2016/7/18.
