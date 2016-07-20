@@ -1,13 +1,16 @@
 version '1.0.0'
 
 apply plugin: 'java'
+apply plugin: 'application'
 
-repositories {
-    jcenter()
-}
+mainClassName = 'module.CashModule'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+
+repositories {
+    jcenter()
 }
 
 dependencies {

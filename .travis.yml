@@ -6,6 +6,7 @@ before_install:
 script:
     - ./gradlew build
     - ./gradlew test
+    - ./gradlew run
 
 jdk:
     - oraclejdk7
