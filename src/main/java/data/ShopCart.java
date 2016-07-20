@@ -3,7 +3,9 @@ package data;
 import info.Commodity;
 import info.CommodityItem;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Sora on 2016/7/19.
@@ -26,5 +28,9 @@ public class ShopCart {
             CommodityItem item = new CommodityItem(commodity, quantity);
             itemMap.put(barcode, item);
         }
+    }
+
+    public List<CommodityItem> getItems() {
+        return new ArrayList<>(itemMap.values());
     }
 }

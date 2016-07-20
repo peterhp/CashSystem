@@ -18,6 +18,10 @@ public class CommodityItemCalculator {
                 .getPromotion(item.getCommodity());
     }
 
+    public Promotion getItemPromotion() {
+        return promotion;
+    }
+
     private float calcTotal() {
         return item.getCommodity().getPrice()
                 * item.getQuantity();
