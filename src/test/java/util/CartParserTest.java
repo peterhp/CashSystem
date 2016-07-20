@@ -1,8 +1,8 @@
 package util;
 
-import data.CommodityManager;
 import data.ResFile;
 import data.ShopCart;
+import data.TestDataCenter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,13 +15,11 @@ import static org.junit.Assert.assertThat;
 public class CartParserTest {
 
     ShopCart cart = null;
-    CommodityManager manager =
-            CommodityManager.getManager();
 
     @Before
     public void setUp() throws Exception {
-        manager.readFromJsonFile(
-                ResFile.getPath("commodity_list.json"));
+        TestDataCenter.initDataManager();
+
         cart = CartParser.readFromJsonFile(
                 ResFile.getPath("shop_cart.json"));
     }

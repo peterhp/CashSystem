@@ -1,7 +1,6 @@
 package util;
 
-import data.PromotionManager;
-import data.ResFile;
+import data.TestDataCenter;
 import info.Commodity;
 import info.CommodityItem;
 import org.junit.Before;
@@ -17,15 +16,11 @@ import static org.mockito.Mockito.mock;
  */
 public class CommodityItemCalculatorTest {
 
-    PromotionManager promotionManager =
-            PromotionManager.getManager();
-
     @Mock Commodity commodity;
 
     @Before
     public void setUp() throws Exception {
-        promotionManager.readFromJsonFile(
-                ResFile.getPath("promotion_list.json"));
+        TestDataCenter.initDataManager();
 
         commodity = mock(Commodity.class);
         given(commodity.getPrice()).willReturn(3.00f);
