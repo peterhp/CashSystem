@@ -1,6 +1,7 @@
 package util;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import data.CommodityManager;
 import data.ShopCart;
 
@@ -11,16 +12,11 @@ import java.io.FileNotFoundException;
  */
 public class CartParser {
 
-    public static ShopCart readFromJsonFile(String jsonFile)
-            throws FileNotFoundException {
+    private static ShopCart parseJsonCart(JsonArray jsonItemArray) {
         ShopCart cart = new ShopCart();
 
         CommodityManager manager =
                 CommodityManager.getManager();
-
-        JsonArray jsonItemArray =
-                JsonReader.getJsonFromFile(jsonFile)
-                .getAsJsonArray();
 
         for (int i = 0; i < jsonItemArray.size(); ++i) {
             String itemText = jsonItemArray.get(i).getAsString();
@@ -39,5 +35,22 @@ public class CartParser {
         }
 
         return cart;
+    }
+
+    public static ShopCart readFromJsonFile(String jsonFile)
+            throws FileNotFoundException {
+        JsonArray jsonItemArray =
+                JsonReader.getJsonFromFile(jsonFile)
+                .getAsJsonArray();
+
+        return parseJsonCart(jsonItemArray);
+    }
+
+    public static ShopCart readFromJsonString(String json) {
+        JsonArray jsonItemArray =
+                JsonReader.getJsonFromString(json)
+                .getAsJsonArray();
+
+        return parseJsonCart(jsonItemArray);
     }
 }

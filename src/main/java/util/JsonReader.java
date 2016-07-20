@@ -24,4 +24,8 @@ public class JsonReader {
         return new JsonParser().parse(
                 createFileReader(file));
     }
+
+    public static JsonElement getJsonFromString(String json) {
+        return new JsonParser().parse(json);
+    }
 }
