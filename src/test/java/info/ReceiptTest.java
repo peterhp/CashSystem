@@ -22,13 +22,13 @@ public class ReceiptTest {
             throws Exception {
         assertThat(Receipt.itemText(item, 9.00f, 0.00f),
                 is("名称：可口可乐，数量：3瓶，单价：3.00（元），" +
-                        "小计：9.00（元）"));
+                        "小计：9.00（元）\n"));
         assertThat(Receipt.itemText(item, 6.00f, 0.00f),
                 is("名称：可口可乐，数量：3瓶，单价：3.00（元），" +
-                        "小计：6.00（元）"));
+                        "小计：6.00（元）\n"));
         assertThat(Receipt.itemText(item, 8.55f, 0.45f),
                 is("名称：可口可乐，数量：3瓶，单价：3.00（元），" +
-                        "小计：8.55（元），节省0.45（元）"));
+                        "小计：8.55（元），节省0.45（元）\n"));
     }
 
     @Test
@@ -46,5 +46,15 @@ public class ReceiptTest {
         discountPromotion.add(item.getCommodity().getBarcode());
         assertThat(Receipt.promotionText(discountPromotion, itemList),
                 is(""));
+    }
+
+    @Test
+    public void should_return_total_cost_and_save_in_receipt()
+            throws Exception {
+        assertThat(Receipt.costText(9.00f, 0.00f),
+                is("总计：9.00（元）\n"));
+
+        assertThat(Receipt.costText(6.00f, 3.00f),
+                is("总计：6.00（元）\n节省：3.00（元）\n"));
     }
 }
